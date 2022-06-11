@@ -29,9 +29,11 @@ public class EldenBiomes {
 
         BiomeGenerationSettings.Builder generationSettings = new BiomeGenerationSettings.Builder();
         generationSettings.surfaceBuilder(ModSurfaceConfigs.ELDEN_SURFACE_BUILDER);
+        BiomeDefaultFeatures.addIcebergs(generationSettings);
         BiomeDefaultFeatures.addDefaultUndergroundVariety(generationSettings);
         BiomeDefaultFeatures.addDefaultCarvers(generationSettings);
         BiomeDefaultFeatures.addDefaultLakes(generationSettings);
+        BiomeDefaultFeatures.addBambooVegetation(generationSettings);
         generationSettings.addFeature(GenerationStep.Decoration.LAKES, Features.LAKE_LAVA);
 
         BiomeDefaultFeatures.addDefaultOres(generationSettings);
@@ -44,7 +46,7 @@ public class EldenBiomes {
                 //                2, 0.1f, 1))));
 
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(0.125F).scale(0.05F).temperature(0.8F).downfall(0.4F)
+                .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F)
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(0x3f76e4).waterFogColor(0x050533)
                         .fogColor(0xc0d8ff).skyColor(0x77adff)
