@@ -1,5 +1,7 @@
 package net.bells.eldencraft;
 
+import net.bells.eldencraft.biome.EldenBiomes;
+import net.bells.eldencraft.gen.ModBiomeGeneration;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,6 +33,9 @@ public class EldenCraft
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEventBus.addListener(this::setup);
+
+        // Registry time :D
+        EldenBiomes.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
