@@ -49,7 +49,7 @@ public class EldenBiomes {
                 .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F)
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         .waterColor(0x3f76e4).waterFogColor(0x050533)
-                        .fogColor(0xc0d8ff).skyColor(0x77adff)
+                        .fogColor(0x6e7a80).skyColor(0x6e7a80)
                         .build()).mobSpawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build()).build();
     }
