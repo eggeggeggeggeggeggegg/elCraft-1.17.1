@@ -12,9 +12,9 @@ import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilderBaseConf
 public class ModSurfaceConfigs {
     public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> ELDEN_SURFACE_BUILDER =
             register("elden_surface", SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderBaseConfiguration(
-                    Blocks.ACACIA_LOG.defaultBlockState(),
-                    Blocks.ACACIA_PLANKS.defaultBlockState(),
-                    Blocks.SANDSTONE.defaultBlockState())));
+                    Blocks.GRASS_BLOCK.defaultBlockState(),
+                    Blocks.DIRT.defaultBlockState(),
+                    Blocks.COARSE_DIRT.defaultBlockState())));
 
     private static <T extends SurfaceBuilderBaseConfiguration> ConfiguredSurfaceBuilder<T> register(String name,
                                                                                                     ConfiguredSurfaceBuilder<T> surfaceBuilder) {

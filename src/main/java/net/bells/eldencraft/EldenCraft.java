@@ -7,8 +7,12 @@ import net.bells.eldencraft.gen.ModBiomeGeneration;
 import net.bells.eldencraft.item.EldenItems;
 import net.bells.eldencraft.structure.EldenConfiguredStructures;
 import net.bells.eldencraft.structure.EldenStructures;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.data.worldgen.Features;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.block.Block;
@@ -23,8 +28,12 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -38,6 +47,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
@@ -47,6 +57,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +71,11 @@ public class EldenCraft
     public static final String MOD_ID = "eldencraft";
     public static final Logger LOGGER = LogManager.getLogger();
 
+    public static final ConfiguredFeature<?, ?> GLOWSTONE = register("glowstone", Feature.GLOWSTONE_BLOB.configured(FeatureConfiguration.NONE).range(Features.Decorators.FULL_RANGE).squared().count(10));
+
+    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String pId, ConfiguredFeature<FC, ?> pConfiguredFeature) {
+        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, pId, pConfiguredFeature);
+    }
 
     public EldenCraft() {
         // Register the setup method for modloading
@@ -67,6 +83,8 @@ public class EldenCraft
 
         //listen up
         modEventBus.addListener(this::setup);
+
+
 
         //frog bus
         IEventBus frogBus = MinecraftForge.EVENT_BUS;
@@ -90,6 +108,7 @@ public class EldenCraft
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
 
+
         event.enqueueWork(() -> {
             EldenStructures.setupStructures();
             EldenConfiguredStructures.registerConfiguredStructures();
@@ -104,20 +123,31 @@ public class EldenCraft
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber
     public static class RegistryEvents {
+
         @SubscribeEvent
-        public static void onInteract(TickEvent.PlayerTickEvent playerEvent) {
+        public static void onPlayerTick(TickEvent.PlayerTickEvent playerEvent) {
             Player player = playerEvent.player;
             ResourceLocation biomeAtPlayer = player.getCommandSenderWorld().getBiome(player.blockPosition()).getRegistryName();
             //LOGGER.info("Elden Land biome: >> {}", EldenBiomes.ELDEN_LAND.get());
             //LOGGER.info("Biome at player: >> {}", biomeAtPlayer);
             if(biomeAtPlayer.equals(EldenBiomes.ELDEN_LAND.get().getRegistryName())) {
-                LOGGER.info("Welcome to elden land!");
+                // Enter elden land biome code
             }
 
             //LOGGER.info(player.position());
         }
 
     }
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class RegistryEventsClient
+    {
+        @SubscribeEvent
+        public static void clientSetupEvent(final FMLClientSetupEvent eventman)
+        {
+            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.LIMGRAVE_OAK_SAPLING.get(), RenderType.cutout());
+        }
+    }
+
     private static Method GETCODEC_METHOD;
     public void addDimensionalSpacing(final WorldEvent.Load event) {
         if(event.getWorld() instanceof ServerLevel){

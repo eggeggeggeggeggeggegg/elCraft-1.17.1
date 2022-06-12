@@ -56,8 +56,6 @@ public class EldenStructures {
                         1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
 
-        // PASTE HERE HELLO BORDER PASTE HERE HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-
 
         // Add more structures here and so on
     }

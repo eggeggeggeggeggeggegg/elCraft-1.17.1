@@ -56,7 +56,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
      */
     @Override
     public GenerationStep.Decoration step() {
-        return GenerationStep.Decoration.SURFACE_STRUCTURES;
+        return GenerationStep.Decoration.RAW_GENERATION;
     }
 
 
@@ -79,6 +79,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
      *         as it is easier to use that.
      */
     private static final List<MobSpawnSettings.SpawnerData> STRUCTURE_MONSTERS = ImmutableList.of(
+            new MobSpawnSettings.SpawnerData(EntityType.ENDER_DRAGON, 100, 4, 9),
             new MobSpawnSettings.SpawnerData(EntityType.ILLUSIONER, 100, 4, 9),
             new MobSpawnSettings.SpawnerData(EntityType.VINDICATOR, 100, 4, 9)
     );
@@ -98,6 +99,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
 
 
     /*
+
      * This is where extra checks can be done to determine if the structure can spawn here.
      * This only needs to be overridden if you're adding additional spawn conditions.
      *
@@ -123,6 +125,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
      * Instead, use the addDimensionalSpacing method in StructureTutorialMain class.
      * If you check for the dimension there and do not add your structure's
      * spacing into the chunk generator, the structure will not spawn in that dimension!
+     *
      */
     @Override
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long seed, WorldgenRandom random, ChunkPos chunkPos1, Biome biome, ChunkPos chunkPos2, NoneFeatureConfiguration featureConfig, LevelHeightAccessor heightLimitView) {
@@ -141,6 +144,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
 
         // Now we test to make sure our structure is not spawning on water or other fluids.
         // You can do height check instead too to make it spawn at high elevations.
+
         return topBlock.getFluidState().isEmpty(); //landHeight > 100;
     }
 
@@ -161,7 +165,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            BlockPos structureBlockPos = new BlockPos(chunkPos.getMinBlockX(), 0, chunkPos.getMinBlockZ());
+            BlockPos structureBlockPos = new BlockPos(chunkPos.getMinBlockX(), 1, chunkPos.getMinBlockZ());
 
             /*
              * If you are doing Nether structures, you'll probably want to spawn your structure on top of ledges.
@@ -214,7 +218,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
             // the surface of water or sunken into land a bit. NOTE: land added by StructureFeature.NOISE_AFFECTING_FEATURES
             // will also be moved alongside the piece. If you do not want this land, do not add your structure to the
             // StructureFeature.NOISE_AFFECTING_FEATURES field and now your pieces can be set on the regular terrain instead.
-            this.pieces.forEach(piece -> piece.move(0, 5, 0));
+            this.pieces.forEach(piece -> piece.move(0, 1, 0));
 
             // Since by default, the start piece of a structure spawns with it's corner at centerPos
             // and will randomly rotate around that corner, we will center the piece on centerPos instead.
@@ -225,7 +229,7 @@ public class TowerStructure extends StructureFeature<NoneFeatureConfiguration> {
             int xOffset = structureBlockPos.getX() - structureCenter.getX();
             int zOffset = structureBlockPos.getZ() - structureCenter.getZ();
             for(StructurePiece structurePiece : this.pieces){
-                structurePiece.move(xOffset, 0, zOffset);
+                structurePiece.move(xOffset, 1, zOffset);
             }
 
             // Sets the bounds of the structure once you are finished.

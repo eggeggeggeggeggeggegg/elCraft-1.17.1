@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "eldencraft:block/limgrave_oak_sapling"
+  }
+}

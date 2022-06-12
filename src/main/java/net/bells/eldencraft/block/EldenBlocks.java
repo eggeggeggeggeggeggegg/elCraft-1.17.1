@@ -1,11 +1,14 @@
 package net.bells.eldencraft.block;
 
 import net.bells.eldencraft.EldenCraft;
+import net.bells.eldencraft.gen.trees.LimgraveOakGrower;
 import net.bells.eldencraft.item.EldenItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
@@ -20,12 +23,16 @@ import java.util.function.Supplier;
 
 public class EldenBlocks {
 
+    //RegistryObject req .get()
 
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, EldenCraft.MOD_ID);
 
     public static final RegistryObject<Block> STRUCTURE_STONE = registerBlock("structure_stone",
-            () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.STONE).requiresCorrectToolForDrops().strength(1.5F,6.0F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+            () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F,6.0F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
+    public static final RegistryObject<Block> LIMGRAVE_OAK_SAPLING = registerBlock("limgrave_oak_sapling",
+            () -> new SaplingBlock(new LimgraveOakGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);

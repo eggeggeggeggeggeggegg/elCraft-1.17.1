@@ -9,7 +9,7 @@
     {
       "weight": 150,
       "element": {
-        "location": "eldencraft:divine_tower_test1",
+        "location": "eldencraft:divine_tower",
         "processors": "minecraft:empty",
 
         "projection": "rigid",

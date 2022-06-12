@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "eldencraft:block/limgrave_oak_sapling"
+  }
+}
