@@ -1,5 +1,6 @@
 package net.bells.eldencraft.gen.trees;
 
+import net.bells.eldencraft.biome.EldenBiomes;
 import net.bells.eldencraft.gen.ModConfiguredFeatures;
 import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.Features;
