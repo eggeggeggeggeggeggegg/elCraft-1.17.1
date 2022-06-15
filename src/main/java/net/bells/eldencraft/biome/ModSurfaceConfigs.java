@@ -13,7 +13,7 @@ public class ModSurfaceConfigs {
     public static final ConfiguredSurfaceBuilder<SurfaceBuilderBaseConfiguration> ELDEN_SURFACE_BUILDER =
             register("elden_surface", SurfaceBuilder.DEFAULT.configured(new SurfaceBuilderBaseConfiguration(
                     Blocks.GRASS_BLOCK.defaultBlockState(),
-                    Blocks.DIRT.defaultBlockState(),
+                    Blocks.ANDESITE.defaultBlockState(),
                     Blocks.COARSE_DIRT.defaultBlockState())));
 
     private static <T extends SurfaceBuilderBaseConfiguration> ConfiguredSurfaceBuilder<T> register(String name,

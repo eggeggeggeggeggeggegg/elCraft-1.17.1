@@ -24,7 +24,7 @@ public class EldenTreeGen {
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-        if(event.getName().equals(EldenBiomes.ELDEN_LAND.getId())) {
+        if(event.getName().equals(EldenBiomes.LIMGRAVE.getId())) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStep.Decoration.VEGETAL_DECORATION);
 
@@ -33,7 +33,13 @@ public class EldenTreeGen {
 
                     .decorated(FeatureDecorator.COUNT_EXTRA
                             .configured(new FrequencyWithExtraChanceDecoratorConfiguration(
-                                    2, 0.8f, 1))));
+                                    2000, 8000f, 1000)))); //2, 0.8, 10
+            base.add(() -> ModConfiguredFeatures.LIMGRAVE_BIRCH
+                    .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED)//.decorated(Features.Decorators.HEIGHTMAP_TOP_SOLID)
+
+                    .decorated(FeatureDecorator.COUNT_EXTRA
+                            .configured(new FrequencyWithExtraChanceDecoratorConfiguration(
+                                    2000, 8000f, 1000)))); //2, 0.8, 10
         }
 
     }

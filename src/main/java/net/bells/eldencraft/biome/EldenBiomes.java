@@ -14,15 +14,15 @@ public class EldenBiomes extends Biomes {
     public static final DeferredRegister<Biome> BIOMES =
             DeferredRegister.create(ForgeRegistries.BIOMES, EldenCraft.MOD_ID);
 
-    public static final RegistryObject<Biome> ELDEN_LAND = BIOMES.register("elden_land",
-            EldenBiomes::createEldenLand);
+    public static final RegistryObject<Biome> LIMGRAVE = BIOMES.register("elden_land",
+            EldenBiomes::createLimgrave);
     public static final RegistryObject<Biome> ALTUS_PLATEAU = BIOMES.register("altus_plateau",
             EldenBiomes::createAltusPlateau);
 
 
 
     //public static final ConfiguredFeature<?, ?> LIMGRAVE_TREES = register("treeman", Feature.RANDOM_SELECTOR.configured(new RandomFeatureConfiguration(ImmutableList.of(Features.FANCY_OAK.weighted(0.1F)), Features.OAK)).decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED).decorated(FeatureDecorator.COUNT_EXTRA.configured(new FrequencyWithExtraChanceDecoratorConfiguration(0, 0.1F, 1))));
-    private static Biome createEldenLand() {
+    private static Biome createLimgrave() {
         MobSpawnSettings.Builder spawnSettings = new MobSpawnSettings.Builder();
         BiomeDefaultFeatures.farmAnimals(spawnSettings);
         BiomeDefaultFeatures.monsters(spawnSettings, 95, 5, 100);
@@ -42,8 +42,6 @@ public class EldenBiomes extends Biomes {
         BiomeDefaultFeatures.addPlainVegetation(generationSettings);
         BiomeDefaultFeatures.commonSpawns(spawnSettings);
 
-        BiomeDefaultFeatures.addForestFlowers(generationSettings);
-
         BiomeDefaultFeatures.addDefaultOres(generationSettings);
         BiomeDefaultFeatures.addDefaultSoftDisks(generationSettings);
         //generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,  ModConfiguredFeatures.LIMGRAVE_OAK
@@ -57,7 +55,7 @@ public class EldenBiomes extends Biomes {
         int fogcolor = 0xadc4c2;
         int folcolor = 0xf5cc27;
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
+                .depth(1.5F).scale(0.4F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         // COLORS
                         // WATER

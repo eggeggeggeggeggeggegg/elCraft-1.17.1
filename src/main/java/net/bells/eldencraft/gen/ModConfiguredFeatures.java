@@ -32,7 +32,19 @@ public class ModConfiguredFeatures {
                     new SimpleStateProvider(EldenBlocks.LIMGRAVE_OAK_SAPLING.get().defaultBlockState()),
                     new FancyFoliagePlacer(UniformInt.of(2,2), UniformInt.of(2,3), 4),
                     new TwoLayersFeatureSize(5, 1, 15)).build()));
-//new WeightedStateProvider(Features.weightedBlockStateBuilder().add(Features.States.WARPED_ROOTS, 85).add(Features.States.CRIMSON_ROOTS, 1).add(Features.States.WARPED_FUNGUS, 13).add(Features.States.CRIMSON_FUNGUS, 1)));
+
+    public static final ConfiguredFeature<?, ?> LIMGRAVE_BIRCH = register("limgrave_birch", Feature.TREE.configured(
+            new TreeConfiguration.TreeConfigurationBuilder(
+                    new SimpleStateProvider(Blocks.BIRCH_WOOD.defaultBlockState()),
+                    new FancyTrunkPlacer(17, 1, 7),
+                    new SimpleStateProvider(Blocks.OAK_LEAVES.defaultBlockState()),
+                    new SimpleStateProvider(EldenBlocks.LIMGRAVE_BIRCH_SAPLING.get().defaultBlockState()),
+                    new FancyFoliagePlacer(UniformInt.of(2,2), UniformInt.of(2,3), 4),
+                    new TwoLayersFeatureSize(5, 1, 15)).build()));
+
+
+
+
     public static final ConfiguredFeature<?, ?> ELDEN_PATCH = Feature.FLOWER.configured((
             new RandomPatchConfiguration.GrassConfigurationBuilder(
                     new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(EldenBlocks.ELDEN_FLOWER.get().defaultBlockState(), 5).add(EldenBlocks.ELDEN_GRASS.get().defaultBlockState(), 10).build()), //maybe no build
