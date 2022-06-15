@@ -55,7 +55,7 @@ public class EldenBiomes extends Biomes {
         int fogcolor = 0xadc4c2;
         int folcolor = 0xf5cc27;
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(1.5F).scale(0.4F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
+                .depth(4.0F).scale(0.7F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         // COLORS
                         // WATER
