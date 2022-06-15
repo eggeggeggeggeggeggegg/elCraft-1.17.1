@@ -42,7 +42,9 @@ public class EldenStructures {
      *   However, users might not know that and think you are to blame for issues that doesn't exist.
      *   So it is best to keep your structure names the same as long as you can instead of changing them frequently.
      */
-    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> DIVINE_TOWER = DEFERRED_REGISTRY_STRUCTURE.register("divine_tower", () -> (new TowerStructure(NoneFeatureConfiguration.CODEC)));
+    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> DIVINE_TOWER = DEFERRED_REGISTRY_STRUCTURE.register("divine_tower", () -> (new SingleStructure(NoneFeatureConfiguration.CODEC)));
+    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> LARGE_RUINS = DEFERRED_REGISTRY_STRUCTURE.register("large_ruins", () -> (new SingleStructure(NoneFeatureConfiguration.CODEC)));
+    public static final RegistryObject<StructureFeature<NoneFeatureConfiguration>> MINOR_ERDTREE = DEFERRED_REGISTRY_STRUCTURE.register("minor_erdtree", () -> (new SingleStructure(NoneFeatureConfiguration.CODEC)));
 
     /**
      * This is where we set the rarity of your structures and determine if land conforms to it.
@@ -51,11 +53,22 @@ public class EldenStructures {
     public static void setupStructures() {
         setupMapSpacingAndLand(
                 DIVINE_TOWER.get(), /* The instance of the structure */
-                new StructureFeatureConfiguration(10 /* average distance apart in chunks between spawn attempts */,
-                        5 /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/,
-                        1234567890 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                new StructureFeatureConfiguration(50 /* average distance apart in chunks between spawn attempts */,
+                        40 /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/,
+                        1921371246 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
-
+        setupMapSpacingAndLand(
+                LARGE_RUINS.get(), /* The instance of the structure */
+                new StructureFeatureConfiguration(30 /* average distance apart in chunks between spawn attempts */,
+                        15 /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/,
+                        819757559 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                true);
+        setupMapSpacingAndLand(
+                MINOR_ERDTREE.get(), /* The instance of the structure */
+                new StructureFeatureConfiguration(40 /* average distance apart in chunks between spawn attempts */,
+                        30 /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/,
+                        687856500 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                true);
 
         // Add more structures here and so on
     }
