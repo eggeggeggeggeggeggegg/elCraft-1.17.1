@@ -71,11 +71,11 @@ public class EldenCraft
     public static final String MOD_ID = "eldencraft";
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final ConfiguredFeature<?, ?> GLOWSTONE = register("glowstone", Feature.GLOWSTONE_BLOB.configured(FeatureConfiguration.NONE).range(Features.Decorators.FULL_RANGE).squared().count(10));
+   //public static final ConfiguredFeature<?, ?> GLOWSTONE = register("glowstone", Feature.GLOWSTONE_BLOB.configured(FeatureConfiguration.NONE).range(Features.Decorators.FULL_RANGE).squared().count(10));
 
-    private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String pId, ConfiguredFeature<FC, ?> pConfiguredFeature) {
-        return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, pId, pConfiguredFeature);
-    }
+    //private static <FC extends FeatureConfiguration> ConfiguredFeature<FC, ?> register(String pId, ConfiguredFeature<FC, ?> pConfiguredFeature) {
+    //    return Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, pId, pConfiguredFeature);
+    //}
 
     public EldenCraft() {
         // Register the setup method for modloading
@@ -118,6 +118,8 @@ public class EldenCraft
     public void biomeModification(final BiomeLoadingEvent event) {
          // add to all biomes
         event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_DIVINE_TOWER);
+        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_LARGE_RUINS);
+        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_MINOR_ERDTREE);
     }
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -145,6 +147,7 @@ public class EldenCraft
         public static void clientSetupEvent(final FMLClientSetupEvent eventman)
         {
             ItemBlockRenderTypes.setRenderLayer(EldenBlocks.LIMGRAVE_OAK_SAPLING.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.ERD_TREE_LEAVES.get(), RenderType.cutout());
         }
     }
 
@@ -187,7 +190,12 @@ public class EldenCraft
              * And if you want to do dimension blacklisting, you need to remove the spacing entry entirely from the map below to prevent generation safely.
              */
             Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
+
             tempMap.putIfAbsent(EldenStructures.DIVINE_TOWER.get(), StructureSettings.DEFAULTS.get(EldenStructures.DIVINE_TOWER.get()));
+            tempMap.putIfAbsent(EldenStructures.LARGE_RUINS.get(), StructureSettings.DEFAULTS.get(EldenStructures.LARGE_RUINS.get()));
+            tempMap.putIfAbsent(EldenStructures.MINOR_ERDTREE.get(), StructureSettings.DEFAULTS.get(EldenStructures.MINOR_ERDTREE.get()));
+
+
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
     }

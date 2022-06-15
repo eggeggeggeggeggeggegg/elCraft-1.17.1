@@ -13,7 +13,7 @@ import static net.minecraftforge.common.BiomeDictionary.Type.*;
 
 public class ModBiomeGeneration {
     public static void generateBiomes() {
-        addBiome(EldenBiomes.ELDEN_LAND.get(), BiomeManager.BiomeType.WARM, 20, HOT, DEAD, DRY);
+        addBiome(EldenBiomes.ELDEN_LAND.get(), BiomeManager.BiomeType.WARM, 20, HOT, DEAD, LUSH, PLATEAU);
     }
 
     private static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight, BiomeDictionary.Type... types) {
