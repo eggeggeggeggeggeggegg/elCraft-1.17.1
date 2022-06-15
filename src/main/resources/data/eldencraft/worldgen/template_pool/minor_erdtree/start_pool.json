@@ -3,13 +3,13 @@
   // Yes, worldgen json files can have comments. Minecraft does "lenient" parsing of these json files.
 
   // This is the name of the template pool itself. I tend to just put the file path and file name here with modid.
-  "name": "eldencraft:divine_tower/start_pool",
+  "name": "eldencraft:minor_erdtree/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 5,
       "element": {
-        "location": "eldencraft:divine_tower",
+        "location": "eldencraft:minor_erdtree",
         "processors": "minecraft:empty",
 
         "projection": "rigid",
