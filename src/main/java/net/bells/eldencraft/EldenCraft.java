@@ -7,24 +7,33 @@ import net.bells.eldencraft.gen.ModBiomeGeneration;
 import net.bells.eldencraft.item.EldenItems;
 import net.bells.eldencraft.structure.EldenConfiguredStructures;
 import net.bells.eldencraft.structure.EldenStructures;
+import net.minecraft.client.color.block.BlockColor;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
 import net.minecraft.data.worldgen.Features;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.FoliageColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.FlatLevelSource;
 import net.minecraft.world.level.levelgen.StructureSettings;
@@ -34,6 +43,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.StructureFeatureConfiguration;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -51,6 +61,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.loading.moddiscovery.NightConfigWrapper;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -117,9 +128,17 @@ public class EldenCraft
     }
     public void biomeModification(final BiomeLoadingEvent event) {
          // add to all biomes
-        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_DIVINE_TOWER);
+        LOGGER.info("Borangotango {}", event.getName());
+        if(event.getName().equals(EldenBiomes.ELDEN_LAND)) {
+            event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_DIVINE_TOWER);
+            event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_MINOR_ERDTREE);
+        }
+
         event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_LARGE_RUINS);
-        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_MINOR_ERDTREE);
+
+        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_LIKBIL);
+        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_LARGE_ARCH);
+        event.getGeneration().getStructures().add(() -> EldenConfiguredStructures.CONFIGURED_SMALL_ARCH);
     }
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -127,11 +146,17 @@ public class EldenCraft
     public static class RegistryEvents {
 
         @SubscribeEvent
+        public static void onLoad(PlayerEvent.PlayerLoggedInEvent joinEvent) {
+            joinEvent.getPlayer().addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1999980, 1));
+        }
+
+        @SubscribeEvent
         public static void onPlayerTick(TickEvent.PlayerTickEvent playerEvent) {
             Player player = playerEvent.player;
             ResourceLocation biomeAtPlayer = player.getCommandSenderWorld().getBiome(player.blockPosition()).getRegistryName();
             //LOGGER.info("Elden Land biome: >> {}", EldenBiomes.ELDEN_LAND.get());
             //LOGGER.info("Biome at player: >> {}", biomeAtPlayer);
+
             if(biomeAtPlayer.equals(EldenBiomes.ELDEN_LAND.get().getRegistryName())) {
                 // Enter elden land biome code
             }
@@ -144,10 +169,21 @@ public class EldenCraft
     public static class RegistryEventsClient
     {
         @SubscribeEvent
+        public static void registerBlockColors(ColorHandlerEvent.Block event)
+        {
+            event.getBlockColors().register((p_92626_, p_92627_, p_92628_, p_92629_) -> {
+                return p_92627_ != null && p_92628_ != null ? BiomeColors.getAverageGrassColor(p_92627_, p_92628_) : FoliageColor.getDefaultColor();
+            }, Blocks.OAK_LEAVES, Blocks.JUNGLE_LEAVES, Blocks.ACACIA_LEAVES, EldenBlocks.ELDEN_GRASS.get(), EldenBlocks.ELDEN_FLOWER.get());
+            //event.getBlockColors().register(, EldenBlocks.ELDEN_GRASS.get()); {
+            //}
+        }
+        @SubscribeEvent
         public static void clientSetupEvent(final FMLClientSetupEvent eventman)
         {
             ItemBlockRenderTypes.setRenderLayer(EldenBlocks.LIMGRAVE_OAK_SAPLING.get(), RenderType.cutout());
-            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.ERD_TREE_LEAVES.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.ERD_TREE_LEAVES.get(), RenderType.cutoutMipped());
+            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.ELDEN_GRASS.get(), RenderType.cutout());
+            ItemBlockRenderTypes.setRenderLayer(EldenBlocks.ELDEN_FLOWER.get(), RenderType.cutout());
         }
     }
 
@@ -181,14 +217,6 @@ public class EldenCraft
                 return;
             }
 
-            /*
-             * putIfAbsent so people can override the spacing with dimension datapacks themselves if they wish to customize spacing more precisely per dimension.
-             * Requires AccessTransformer  (see resources/META-INF/accesstransformer.cfg)
-             *
-             * NOTE: if you add per-dimension spacing configs, you can't use putIfAbsent as BuiltinRegistries.NOISE_GENERATOR_SETTINGS in FMLCommonSetupEvent
-             * already added your default structure spacing to some dimensions. You would need to override the spacing with .put(...)
-             * And if you want to do dimension blacklisting, you need to remove the spacing entry entirely from the map below to prevent generation safely.
-             */
             Map<StructureFeature<?>, StructureFeatureConfiguration> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
 
             tempMap.putIfAbsent(EldenStructures.DIVINE_TOWER.get(), StructureSettings.DEFAULTS.get(EldenStructures.DIVINE_TOWER.get()));

@@ -12,5 +12,6 @@ public class WorldGenEvents {
     @SubscribeEvent
     public static void ModWorldGeneration(final BiomeLoadingEvent event) {
         EldenTreeGen.generateTrees(event);
+        ModVeggieGen.generateFlowers(event);
     }
 }

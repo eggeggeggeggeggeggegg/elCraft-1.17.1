@@ -6,10 +6,7 @@ import net.bells.eldencraft.item.EldenItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
@@ -31,15 +28,26 @@ public class EldenBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, EldenCraft.MOD_ID);
 
+
+
     public static final RegistryObject<Block> STRUCTURE_STONE = registerBlock("structure_stone",
             () -> new Block(BlockBehaviour.Properties.copy(Blocks.STONE).requiresCorrectToolForDrops().strength(1.5F,6.0F)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
+
+    public static final RegistryObject<Block> ELDEN_GRASS = registerBlock("elden_grass",
+            () -> new TallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS).color(MaterialColor.GRASS)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
+    public static final RegistryObject<Block> ELDEN_FLOWER = registerBlock("elden_flower",
+            () -> new TallGrassBlock(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).noCollission().instabreak().sound(SoundType.GRASS)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     public static final RegistryObject<Block> ERD_TREE_LEAVES = registerBlock("erd_tree_leaves",
             () -> new Block(BlockBehaviour.Properties.of(Material.LEAVES).requiresCorrectToolForDrops().strength(1.5F,6.0F).lightLevel(BlockState -> 32)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
     public static final RegistryObject<Block> LIMGRAVE_OAK_SAPLING = registerBlock("limgrave_oak_sapling",
             () -> new SaplingBlock(new LimgraveOakGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
+
+
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn, tab);

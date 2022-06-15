@@ -12,6 +12,10 @@ public class EldenConfiguredStructures {
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_DIVINE_TOWER = EldenStructures.DIVINE_TOWER.get().configured(NoneFeatureConfiguration.INSTANCE);
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_LARGE_RUINS = EldenStructures.LARGE_RUINS.get().configured(NoneFeatureConfiguration.INSTANCE);
     public static ConfiguredStructureFeature<?, ?> CONFIGURED_MINOR_ERDTREE = EldenStructures.MINOR_ERDTREE.get().configured(NoneFeatureConfiguration.INSTANCE);
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_LIKBIL = EldenStructures.LIKBIL.get().configured(NoneFeatureConfiguration.INSTANCE);
+
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_SMALL_ARCH= EldenStructures.SMALL_ARCH.get().configured(NoneFeatureConfiguration.INSTANCE);
+    public static ConfiguredStructureFeature<?, ?> CONFIGURED_LARGE_ARCH= EldenStructures.LARGE_ARCH.get().configured(NoneFeatureConfiguration.INSTANCE);
     /**
      * Registers the configured structure which is what gets added to the biomes.
      * Noticed we are not using a forge registry because there is none for configured structures.
@@ -22,9 +26,13 @@ public class EldenConfiguredStructures {
     public static void registerConfiguredStructures() {
         Registry<ConfiguredStructureFeature<?, ?>> registry = BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE;
 
-        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "CONFIGURED_divine_tower"), CONFIGURED_DIVINE_TOWER);
-        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "CONFIGURED_large_ruins"), CONFIGURED_LARGE_RUINS);
-        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "CONFIGURED_minor_erdtree"), CONFIGURED_MINOR_ERDTREE);
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_divine_tower"), CONFIGURED_DIVINE_TOWER);
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_large_ruins"), CONFIGURED_LARGE_RUINS);
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_minor_erdtree"), CONFIGURED_MINOR_ERDTREE);
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_likbil"), CONFIGURED_LIKBIL);
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_large_arch"), CONFIGURED_LARGE_ARCH);
+
+        Registry.register(registry, new ResourceLocation(EldenCraft.MOD_ID, "configured_small_arch"), CONFIGURED_SMALL_ARCH);
     }
 
 }

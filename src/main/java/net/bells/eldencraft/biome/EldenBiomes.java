@@ -1,23 +1,9 @@
 package net.bells.eldencraft.biome;
 
-import com.google.common.collect.ImmutableList;
 import net.bells.eldencraft.EldenCraft;
-import net.bells.eldencraft.gen.ModConfiguredFeatures;
+import net.bells.eldencraft.data.worldgen.BiomeEldenFeatures;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
-import net.minecraft.data.worldgen.Features;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.biome.*;
-import net.minecraft.world.level.levelgen.GenerationStep;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
-import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
-import net.minecraft.world.level.levelgen.feature.foliageplacers.BlobFoliagePlacer;
-import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
-import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
-import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
-import net.minecraft.world.level.levelgen.placement.FrequencyWithExtraChanceDecoratorConfiguration;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -44,13 +30,13 @@ public class EldenBiomes extends Biomes {
         BiomeGenerationSettings.Builder generationSettings = new BiomeGenerationSettings.Builder();
         generationSettings.surfaceBuilder(ModSurfaceConfigs.ELDEN_SURFACE_BUILDER);
 
+        BiomeEldenFeatures.addEldenGrass(generationSettings);
+
         BiomeDefaultFeatures.addDefaultUndergroundVariety(generationSettings);
         BiomeDefaultFeatures.addDefaultCarvers(generationSettings);
         BiomeDefaultFeatures.addPlainGrass(generationSettings);
         BiomeDefaultFeatures.addDefaultExtraVegetation(generationSettings);
-        BiomeDefaultFeatures.addDefaultLakes(generationSettings);
         BiomeDefaultFeatures.addMossyStoneBlock(generationSettings);
-        BiomeDefaultFeatures.addWaterTrees(generationSettings);
         //BiomeDefaultFeatures.addBambooVegetation(generationSettings);
 
         BiomeDefaultFeatures.addPlainVegetation(generationSettings);
@@ -60,7 +46,6 @@ public class EldenBiomes extends Biomes {
 
         BiomeDefaultFeatures.addDefaultOres(generationSettings);
         BiomeDefaultFeatures.addDefaultSoftDisks(generationSettings);
-        BiomeDefaultFeatures.addDefaultSprings(generationSettings);
         //generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,  ModConfiguredFeatures.LIMGRAVE_OAK
          //       .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED)
            //     .decorated(FeatureDecorator.COUNT_EXTRA
@@ -72,7 +57,7 @@ public class EldenBiomes extends Biomes {
         int fogcolor = 0xadc4c2;
         int folcolor = 0xf5cc27;
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F)
+                .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         // COLORS
                         // WATER
@@ -124,7 +109,7 @@ public class EldenBiomes extends Biomes {
         int fogcolor = 0xadc4c2;
         int folcolor = 0xf5cc27;
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(0.125F).scale(1.0F).temperature(0.8F).downfall(0.4F)
+                .depth(0.025F).scale(0.1F).temperature(0.8F).downfall(0.4F)
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         // COLORS
                         // WATER
