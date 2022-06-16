@@ -143,8 +143,8 @@ public class DivineTowerStructure extends StructureFeature<NoneFeatureConfigurat
 
         // Now we test to make sure our structure is not spawning on water or other fluids.
         // You can do height check instead too to make it spawn at high elevations.
-
-        return topBlock.getFluidState().isEmpty(); //landHeight > 100;
+        return blockPos.getY() > 150;
+        //return topBlock.getFluidState().isEmpty(); //landHeight > 100;
     }
 
     /**

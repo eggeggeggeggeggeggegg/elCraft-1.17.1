@@ -145,7 +145,7 @@ public class EldenCraft
         {
             event.getBlockColors().register((p_92626_, p_92627_, p_92628_, p_92629_) -> {
                 return p_92627_ != null && p_92628_ != null ? BiomeColors.getAverageGrassColor(p_92627_, p_92628_) : FoliageColor.getDefaultColor();
-            }, Blocks.OAK_LEAVES, Blocks.JUNGLE_LEAVES, Blocks.ACACIA_LEAVES, EldenBlocks.ELDEN_GRASS.get(), EldenBlocks.ELDEN_FLOWER.get());
+            }, EldenBlocks.ELDEN_GRASS.get(), EldenBlocks.ELDEN_FLOWER.get());
             //event.getBlockColors().register(, EldenBlocks.ELDEN_GRASS.get()); {
             //}
         }

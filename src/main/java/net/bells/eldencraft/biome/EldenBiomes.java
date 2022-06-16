@@ -14,7 +14,7 @@ public class EldenBiomes extends Biomes {
     public static final DeferredRegister<Biome> BIOMES =
             DeferredRegister.create(ForgeRegistries.BIOMES, EldenCraft.MOD_ID);
 
-    public static final RegistryObject<Biome> LIMGRAVE = BIOMES.register("elden_land",
+    public static final RegistryObject<Biome> LIMGRAVE = BIOMES.register("limgrave",
             EldenBiomes::createLimgrave);
     public static final RegistryObject<Biome> ALTUS_PLATEAU = BIOMES.register("altus_plateau",
             EldenBiomes::createAltusPlateau);
