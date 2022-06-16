@@ -16,8 +16,10 @@ import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConf
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FancyFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.RandomSpreadFoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.stateproviders.SimpleStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.WeightedStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.BendingTrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
 import java.io.ObjectInputFilter;
@@ -36,10 +38,13 @@ public class ModConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> LIMGRAVE_BIRCH = register("limgrave_birch", Feature.TREE.configured(
             new TreeConfiguration.TreeConfigurationBuilder(
                     new SimpleStateProvider(Blocks.BIRCH_WOOD.defaultBlockState()),
-                    new FancyTrunkPlacer(17, 1, 7),
+                    new BendingTrunkPlacer(5, 1, 2,5,UniformInt.of(1,2)),
                     new SimpleStateProvider(Blocks.OAK_LEAVES.defaultBlockState()),
                     new SimpleStateProvider(EldenBlocks.LIMGRAVE_BIRCH_SAPLING.get().defaultBlockState()),
-                    new FancyFoliagePlacer(UniformInt.of(2,2), UniformInt.of(2,3), 4),
+                    //new BlobFoliagePlacer(UniformInt.of(2,2), UniformInt.of(3,4), 5),
+                    //new FancyFoliagePlacer(UniformInt.of(1,1), UniformInt.of(4,5), 7),
+                    new RandomSpreadFoliagePlacer(UniformInt.of(2,3), UniformInt.of(2,2), UniformInt.of(3,4),32),
+
                     new TwoLayersFeatureSize(5, 1, 15)).build()));
 
 

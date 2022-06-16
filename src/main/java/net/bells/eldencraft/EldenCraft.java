@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import net.bells.eldencraft.biome.EldenBiomes;
 import net.bells.eldencraft.block.EldenBlocks;
 import net.bells.eldencraft.gen.ModBiomeGeneration;
+import net.bells.eldencraft.handler.ConfigHandler;
 import net.bells.eldencraft.item.EldenItems;
 import net.bells.eldencraft.structure.EldenConfiguredStructures;
 import net.bells.eldencraft.structure.EldenStructures;
@@ -34,7 +35,9 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
@@ -79,6 +82,8 @@ public class EldenCraft
         EldenBlocks.register(modEventBus);
         EldenItems.register(modEventBus);
         EldenStructures.DEFERRED_REGISTRY_STRUCTURE.register(modEventBus);
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.spec);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

@@ -143,7 +143,8 @@ public class DivineTowerStructure extends StructureFeature<NoneFeatureConfigurat
 
         // Now we test to make sure our structure is not spawning on water or other fluids.
         // You can do height check instead too to make it spawn at high elevations.
-        return blockPos.getY() > 150;
+        EldenCraft.LOGGER.info("Wow man, divine tower landheight < 123 -> {}", landHeight < 123); //167 - 16
+        return landHeight < 123;
         //return topBlock.getFluidState().isEmpty(); //landHeight > 100;
     }
 

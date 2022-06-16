@@ -55,7 +55,7 @@ public class EldenBiomes extends Biomes {
         int fogcolor = 0xadc4c2;
         int folcolor = 0xf5cc27;
         return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(4.0F).scale(0.7F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
+                .depth(1.0F).scale(0.8F).temperature(0.8F).downfall(0.4F) //depth: 0.125, scale: 1.0f, temp 0.8, downfall 0.4
                 .specialEffects((new BiomeSpecialEffects.Builder())
                         // COLORS
                         // WATER
@@ -79,23 +79,22 @@ public class EldenBiomes extends Biomes {
         BiomeGenerationSettings.Builder generationSettings = new BiomeGenerationSettings.Builder();
         generationSettings.surfaceBuilder(ModSurfaceConfigs.ELDEN_SURFACE_BUILDER);
 
+        BiomeEldenFeatures.addEldenGrass(generationSettings);
+
         BiomeDefaultFeatures.addDefaultUndergroundVariety(generationSettings);
         BiomeDefaultFeatures.addDefaultCarvers(generationSettings);
         BiomeDefaultFeatures.addPlainGrass(generationSettings);
         BiomeDefaultFeatures.addDefaultExtraVegetation(generationSettings);
-        BiomeDefaultFeatures.addDefaultLakes(generationSettings);
         BiomeDefaultFeatures.addMossyStoneBlock(generationSettings);
-        BiomeDefaultFeatures.addWaterTrees(generationSettings);
+
+        BiomeDefaultFeatures.addSwampExtraVegetation(generationSettings);
         //BiomeDefaultFeatures.addBambooVegetation(generationSettings);
 
         BiomeDefaultFeatures.addPlainVegetation(generationSettings);
         BiomeDefaultFeatures.commonSpawns(spawnSettings);
 
-        BiomeDefaultFeatures.addForestFlowers(generationSettings);
-
         BiomeDefaultFeatures.addDefaultOres(generationSettings);
         BiomeDefaultFeatures.addDefaultSoftDisks(generationSettings);
-        BiomeDefaultFeatures.addDefaultSprings(generationSettings);
         //generationSettings.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION,  ModConfiguredFeatures.LIMGRAVE_OAK
         //       .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED)
         //     .decorated(FeatureDecorator.COUNT_EXTRA
@@ -103,23 +102,22 @@ public class EldenBiomes extends Biomes {
         //                 2, 0.8f, 1))));
 
 
-        int skycolor = 0x435e5c;
-        int fogcolor = 0xadc4c2;
-        int folcolor = 0xf5cc27;
-        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
-                .depth(0.025F).scale(0.1F).temperature(0.8F).downfall(0.4F)
-                .specialEffects((new BiomeSpecialEffects.Builder())
-                        // COLORS
-                        // WATER
-                        .waterColor(0x9bbdbf)
-                        .waterFogColor(0x9bbdbf)
-                        // FOG
-                        .fogColor(fogcolor)
-                        .skyColor(skycolor)
-                        // GRASS + LEAVES
-                        .grassColorOverride(0x93b565)
-                        .foliageColorOverride(folcolor)
+        int skycolor = 0x968b3f;
+        int fogcolor = 0xeddcc7;
 
+        int folcolor = 0xffbc03;
+        int grasscolor = 0xe3bb29;
+
+        int waterColor = 0x9bbdbf;
+        int waterFogColor = 0x9bbdbf;
+
+        return (new Biome.BiomeBuilder()).precipitation(Biome.Precipitation.RAIN).biomeCategory(Biome.BiomeCategory.NONE)
+                .depth(1.0F).scale(0.8F).temperature(0.8F).downfall(0.4F)
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        // WATER
+                        .waterColor(waterColor)
+                        .waterFogColor(waterFogColor)
+                        .fogColor(fogcolor).skyColor(skycolor).grassColorOverride(grasscolor).foliageColorOverride(folcolor)
                         .build()).mobSpawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build()).build();
     }
