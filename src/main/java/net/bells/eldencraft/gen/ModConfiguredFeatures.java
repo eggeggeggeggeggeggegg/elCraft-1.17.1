@@ -52,7 +52,7 @@ public class ModConfiguredFeatures {
 
     public static final ConfiguredFeature<?, ?> ELDEN_PATCH = Feature.FLOWER.configured((
             new RandomPatchConfiguration.GrassConfigurationBuilder(
-                    new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(EldenBlocks.ELDEN_FLOWER.get().defaultBlockState(), 5).add(EldenBlocks.ELDEN_GRASS.get().defaultBlockState(), 10).build()), //maybe no build
+                    new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(EldenBlocks.ELDEN_FLOWER.get().defaultBlockState(), 5).add(EldenBlocks.ELDEN_GRASS.get().defaultBlockState(), 10)), //maybe no build
                     SimpleBlockPlacer.INSTANCE)).tries(12).build())
             .decorated(Features.Decorators.HEIGHTMAP_WITH_TREE_THRESHOLD_SQUARED).count(5);
 

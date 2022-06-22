@@ -46,6 +46,7 @@ public class EldenBlocks {
 
     public static final RegistryObject<Block> LIMGRAVE_OAK_SAPLING = registerBlock("limgrave_oak_sapling",
             () -> new SaplingBlock(new LimgraveOakGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), CreativeModeTab.TAB_BUILDING_BLOCKS);
+
     public static final RegistryObject<Block> LIMGRAVE_BIRCH_SAPLING = registerBlock("limgrave_birch_sapling",
             () -> new SaplingBlock(new LimgraveBirchGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)), CreativeModeTab.TAB_BUILDING_BLOCKS);
 
